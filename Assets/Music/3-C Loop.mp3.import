@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dq225e7qk2vny"
+path="res://.godot/imported/3-C Loop.mp3-c65e8e42e1eb776db8387000553f2eb5.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/3-C Loop.mp3"
+dest_files=["res://.godot/imported/3-C Loop.mp3-c65e8e42e1eb776db8387000553f2eb5.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

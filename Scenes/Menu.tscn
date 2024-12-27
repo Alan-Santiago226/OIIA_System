@@ -1,0 +1,103 @@
+[gd_scene load_steps=5 format=3 uid="uid://csja36pf15fr6"]
+
+[ext_resource type="PackedScene" uid="uid://b23v614r1v8nx" path="res://Scenes/intro_background.tscn" id="1_0sdo2"]
+[ext_resource type="FontFile" uid="uid://beikptyuxpqn7" path="res://Assets/Fonts/slice.ttf" id="1_2453k"]
+[ext_resource type="Script" path="res://Scenes/Menu.gd" id="1_gllu8"]
+[ext_resource type="PackedScene" uid="uid://cm48b117f5vge" path="res://Scenes/scene_fade.tscn" id="4_uxmf1"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchor_right = 1.667
+anchor_bottom = 1.667
+offset_right = -1280.64
+offset_bottom = -720.36
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gllu8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -250.0
+offset_right = 500.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 25
+
+[node name="U" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_2453k")
+theme_override_font_sizes/font_size = 160
+text = "U"
+flat = true
+
+[node name="I" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_2453k")
+theme_override_font_sizes/font_size = 160
+text = "I"
+flat = true
+
+[node name="I2" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_2453k")
+theme_override_font_sizes/font_size = 160
+text = "I"
+flat = true
+
+[node name="A" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_2453k")
+theme_override_font_sizes/font_size = 160
+text = "A"
+flat = true
+
+[node name="A2" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_2453k")
+theme_override_font_sizes/font_size = 160
+text = "A"
+flat = true
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("1_0sdo2")]
+
+[node name="scene_fade" parent="." instance=ExtResource("4_uxmf1")]
+visible = false
+
+[node name="Audio_Background" type="AudioStreamPlayer" parent="."]
+
+[node name="Change" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/I2" to="." method="_on_i_2_pressed"]
+[connection signal="finished" from="Audio_Background" to="." method="_on_audio_background_finished"]
