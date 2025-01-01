@@ -14,6 +14,8 @@ var change = false
 var is_reverse = false
 var music_pos: float = 0.0
 
+var tween: Tween = null
+
 func _ready() -> void:
 	$scene_fade.show()
 	#music_decition = 3
@@ -99,13 +101,21 @@ func _on_audio_background_finished():
 
 
 func _on_i_2_pressed():
+	if tween == null:
+		tween = get_tree().create_tween()
+		tween.set_parallel(true)
 	verify_reversed()
+	$VBoxContainer/HBoxContainer/I2.disabled = true
+	$Cooldown.start()
+	#tween.tween_callback($VBoxContainer/HBoxContainer/I2.queue_free())
 
 func verify_reversed() -> void:
 	if is_reverse == false:
 		reverse_music(1)
+		colors_UI(1)
 	else:
 		reverse_music(0)
+		colors_UI(2)
 		
 func reverse_music(index: int) -> void:
 	music_pos = $Audio_Background.get_playback_position()
@@ -141,3 +151,37 @@ func play_reverse(con: bool) -> void:
 			else:
 				$Audio_Background.stream = A
 				$Audio_Background.play(A_re.get_length() - music_pos)
+
+func colors_UI(index : int) -> void:
+	var props = ["theme_override_colors/font_color","theme_override_colors/font_pressed_color","theme_override_colors/font_hover_color"]
+	var buttons = [$VBoxContainer/HBoxContainer/U, $VBoxContainer/HBoxContainer/I, $VBoxContainer/HBoxContainer/I2, $VBoxContainer/HBoxContainer/A, $VBoxContainer/HBoxContainer/A2]
+	match index:
+		1:
+			tween.tween_property($ParallaxBackground/ColorRect,"color", Color.BLACK, 0.75)
+			for i in buttons:
+				for prop in props:
+					if i == buttons[2]:
+						if prop == props[0]:
+							tween.tween_property(i,prop, Color.WHITE, 1)
+							tween.tween_property(i,"theme_override_colors/font_disabled_color", Color.WHITE, 1)
+						else:
+							tween.tween_property(i,prop, Color.AQUA, 1)
+					else:
+						tween.tween_property(i,prop, Color.WHITE, 1)
+		2:
+			tween.tween_property($ParallaxBackground/ColorRect,"color", Color.WHITE, 0.75)
+			for i in buttons:
+				for prop in props:
+					if i == buttons[2]:
+						if prop == props[0]:
+							tween.tween_property(i,prop, Color.BLACK, 1)
+							tween.tween_property(i,"theme_override_colors/font_disabled_color", Color.BLACK, 1)
+						else:
+							tween.tween_property(i,prop, Color.RED, 1)
+					else:
+						tween.tween_property(i,prop, Color.BLACK, 1)
+	#tween.finished.connect(tween.queue_free)
+	tween = null
+
+func _on_cooldown_timeout():
+	$VBoxContainer/HBoxContainer/I2.disabled = false
